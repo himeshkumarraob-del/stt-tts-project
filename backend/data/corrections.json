@@ -1,0 +1,23 @@
+{
+  "stt": {
+    "corrections": {
+      "image.": "Himesh"
+    },
+    "keywords": [
+      "Himesh"
+    ],
+    "history": [
+      {
+        "from": "Image.",
+        "to": "Himesh",
+        "at": "2026-09-08T13:38:01.551Z"
+      }
+    ],
+    "count": 1
+  },
+  "tts": {
+    "substitutions": {},
+    "history": [],
+    "count": 0
+  }
+}

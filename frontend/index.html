@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Baat — Speech for every Indian accent</title>
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <div class="brand">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 32 32" width="28" height="28">
+            <path d="M4 20 L9 12 L13 24 L17 6 L21 26 L25 14 L28 20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </span>
+        <span class="brand-name">Baat</span>
+      </div>
+      <div class="topbar-right">
+        <div class="learned-counter" id="learnedCounter" title="Total corrections learned so far">
+          <span class="learned-icon">🧠</span>
+          <span id="learnedCount">0</span> corrections learned
+        </div>
+        <div class="provider-tag" id="providerTag">connecting…</div>
+      </div>
+    </header>
+
+    <main class="layout">
+      <!-- ── Left: Record + STT ─────────────────────────────────────── -->
+      <section class="panel panel-record" aria-labelledby="record-heading">
+        <h1 id="record-heading">Speak. In your own accent.</h1>
+        <p class="subhead">Tamil, Telugu, Hindi, Kannada, Malayalam, Bengali-inflected English — all recognized as the words you actually said.</p>
+
+        <div class="waveform-frame">
+          <canvas id="waveform" width="640" height="140" aria-hidden="true"></canvas>
+          <div class="rec-indicator" id="recIndicator" hidden>
+            <span class="dot"></span> Listening
+          </div>
+        </div>
+
+        <div class="controls-row">
+          <button id="recordBtn" class="btn btn-record" type="button" aria-pressed="false">
+            <span class="icon" aria-hidden="true">🎙️</span>
+            <span class="label">Record</span>
+          </button>
+          <div class="badges" id="badges" aria-live="polite">
+            <span class="badge badge-muted" id="langBadge">Language: —</span>
+            <span class="badge badge-muted" id="accentBadge">Accent: —</span>
+            <span class="badge badge-muted" id="codeSwitchBadge" hidden>Code-switch detected</span>
+          </div>
+        </div>
+
+        <div class="confidence-row" id="confidenceRow" hidden>
+          <label for="confidenceMeter">Confidence</label>
+          <meter id="confidenceMeter" min="0" max="1" value="0"></meter>
+          <span id="confidenceValue">—</span>
+          <span id="keywordsApplied" class="kw-tag" hidden></span>
+        </div>
+
+        <div id="statusBanner" class="status-banner" role="status" hidden></div>
+
+        <label class="field-label" for="transcript">
+          Transcript
+          <span class="hint">(editable — fix errors below to improve future recognition)</span>
+        </label>
+        <div id="transcript" class="transcript" contenteditable="true" role="textbox"
+             aria-multiline="true" data-placeholder="Your speech will appear here as you talk…"></div>
+
+        <!-- STT correction panel — appears after transcription -->
+        <div id="sttCorrectionBar" class="correction-bar" hidden>
+          <span class="correction-hint">✏️ You edited the transcript — save corrections to improve future recognition:</span>
+          <div class="correction-bar-actions">
+            <button id="saveSttBtn" class="btn btn-learn" type="button">Save corrections</button>
+            <button id="discardSttBtn" class="btn btn-ghost btn-sm" type="button">Discard</button>
+          </div>
+        </div>
+
+        <!-- Recent STT corrections list -->
+        <div id="sttLearnedList" class="learned-list" hidden>
+          <div class="learned-list-header">
+            <span>Learned STT corrections <span id="sttCount" class="count-badge">0</span></span>
+            <button id="clearSttBtn" class="btn-link" type="button">clear all</button>
+          </div>
+          <ul id="sttItems" class="corrections-list"></ul>
+        </div>
+
+        <div class="transcript-actions">
+          <button id="clearBtn" class="btn btn-ghost" type="button">Clear</button>
+          <button id="sendToTtsBtn" class="btn btn-ghost" type="button">Send to voice panel →</button>
+        </div>
+      </section>
+
+      <!-- ── Right: TTS ─────────────────────────────────────────────── -->
+      <section class="panel panel-tts" aria-labelledby="tts-heading">
+        <h2 id="tts-heading">Hear it back</h2>
+        <p class="subhead">Natural Indian-English and regional-language voices.</p>
+
+        <label class="field-label" for="ttsText">Text to speak</label>
+        <textarea id="ttsText" rows="5" placeholder="Type or send text here, e.g. Namaste, welcome to Chennai!"></textarea>
+
+        <div class="field-grid">
+          <div class="field">
+            <label for="voiceSelect">Voice</label>
+            <select id="voiceSelect"></select>
+          </div>
+          <div class="field">
+            <label for="rateRange">Speed <span id="rateValue">1.0×</span></label>
+            <input type="range" id="rateRange" min="0.5" max="2" step="0.05" value="1" />
+          </div>
+          <div class="field">
+            <label for="pitchRange">Pitch <span id="pitchValue">0 st</span></label>
+            <input type="range" id="pitchRange" min="-6" max="6" step="0.5" value="0" />
+          </div>
+        </div>
+
+        <div class="controls-row">
+          <button id="speakBtn" class="btn btn-primary" type="button">
+            <span class="icon" aria-hidden="true">🔊</span> Speak
+          </button>
+          <button id="downloadBtn" class="btn btn-ghost" type="button" disabled>Download audio</button>
+        </div>
+
+        <audio id="player" controls hidden></audio>
+
+        <!-- TTS pronunciation correction — appears after playback -->
+        <div id="ttsCorrectionPanel" class="tts-correction-panel" hidden>
+          <div class="tts-correction-header">
+            🔧 Word mispronounced? Teach the system:
+          </div>
+          <div class="tts-correction-form">
+            <div class="tts-correction-fields">
+              <div class="field">
+                <label for="wrongWord">Word as typed</label>
+                <input type="text" id="wrongWord" placeholder="e.g. Bengaluru" />
+              </div>
+              <div class="field">
+                <label for="correctWord">Say it as</label>
+                <input type="text" id="correctWord" placeholder="e.g. Bengalooru" />
+              </div>
+            </div>
+            <button id="saveTtsBtn" class="btn btn-learn" type="button">Save pronunciation fix</button>
+          </div>
+        </div>
+
+        <!-- Recent TTS corrections list -->
+        <div id="ttsLearnedList" class="learned-list" hidden>
+          <div class="learned-list-header">
+            <span>Learned pronunciation fixes <span id="ttsCount" class="count-badge">0</span></span>
+            <button id="clearTtsBtn" class="btn-link" type="button">clear all</button>
+          </div>
+          <ul id="ttsItems" class="corrections-list"></ul>
+        </div>
+
+        <div id="ttsStatus" class="status-banner" role="status" hidden></div>
+      </section>
+    </main>
+
+    <footer class="footnote">
+      Audio is sent to your configured speech provider for processing and is not stored by this app.
+      Corrections are saved locally on your machine only.
+    </footer>
+  </div>
+
+  <script src="js/waveform.js"></script>
+  <script src="js/recorder.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
