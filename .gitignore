@@ -1,0 +1,38 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual Environments
+venv/
+.venv/
+env/
+ENV/
+backend/venv/
+
+# Environment variables & secrets
+.env
+.env.local
+.env.*.local
+!.env.example
+
+# Databases
+*.db
+*.sqlite
+*.sqlite3
+voice_learning.db
+backend/voice_learning.db
+
+# Testing, Scratch & Logs
+.pytest_cache/
+.coverage
+htmlcov/
+qa_scratch/
+*.log
+
+# IDE & Editor folders
+.obsidian/
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

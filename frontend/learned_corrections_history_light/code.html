@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Plus+Jakarta+Sans:wght@600;700;800&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+    @layer base {
+      html, body { margin: 0; padding: 0; }
+      body { overscroll-behavior: none; }
+      main > :first-child { margin-top: 0 !important; }
+      main > :last-child { margin-bottom: 0 !important; }
+    }
+    ::-webkit-scrollbar { display: none; }
+  </style>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: "#eef2ff",
+              100: "#e0e7ff",
+              600: "#4f46e5",
+              700: "#4338ca",
+            },
+            canvas: "#f8fafc",
+            card: "#ffffff",
+            subtle: "#f1f5f9",
+            borderline: "#e2e8f0",
+            headings: "#0f172a",
+            bodytext: "#334155",
+            mutedtext: "#64748b",
+            emerald: {
+              50: "#ecfdf5",
+              100: "#d1fae5",
+              500: "#10b981",
+              600: "#059669",
+              700: "#047857",
+            },
+            amber: {
+              50: "#fffbeb",
+              100: "#fef3c7",
+              600: "#d97706",
+              700: "#b45309",
+            },
+            rose: {
+              50: "#fff1f2",
+              100: "#ffe4e6",
+              600: "#e11d48",
+              700: "#be123c",
+            }
+          },
+          fontFamily: {
+            sans: ["Inter", "sans-serif"],
+            headline: ["Plus Jakarta Sans", "sans-serif"],
+            mono: ["JetBrains Mono", "monospace"],
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-canvas font-sans text-bodytext antialiased min-h-screen flex flex-col">
+<!-- Fixed Top Header (Light Clean Slate Theme) -->
+<header class="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md border-b border-borderline shadow-sm">
+<div class="h-20 w-full px-6 sm:px-8 lg:px-12 flex items-center justify-between gap-6">
+<div class="flex items-center gap-8 lg:gap-10">
+<!-- Logo -->
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-xl bg-brand-600 flex items-center justify-center shadow-md shadow-brand-600/20 text-white">
+<span class="material-symbols-outlined text-[22px]">graphic_eq</span>
+</div>
+<div class="flex flex-col">
+<span class="font-headline font-bold text-headings text-lg tracking-tight leading-none">Resonant Voice AI</span>
+<span class="font-mono text-[10px] text-brand-600 font-semibold tracking-widest uppercase mt-1">Acoustic Neural Engine</span>
+</div>
+</div>
+<!-- Navigation Tabs -->
+<nav class="hidden xl:flex items-center gap-1 p-1 bg-subtle rounded-xl border border-borderline">
+<a class="px-4 py-1.5 font-sans font-medium text-xs text-mutedtext hover:text-headings hover:bg-white/80 transition-all rounded-lg" data-path="practice-&amp;-record" href="#">Practice &amp; Record</a>
+<a class="px-4 py-1.5 font-sans font-medium text-xs text-mutedtext hover:text-headings hover:bg-white/80 transition-all rounded-lg" data-path="analysis-&amp;-results" href="#">Analysis &amp; Results</a>
+<a aria-current="page" class="px-4 py-1.5 font-sans font-semibold text-xs transition-all bg-white text-brand-600 shadow-sm rounded-lg" data-path="learned-corrections" href="#">Learned Corrections</a>
+<a class="px-4 py-1.5 font-sans font-medium text-xs text-mutedtext hover:text-headings hover:bg-white/80 transition-all rounded-lg" data-path="session-history" href="#">Session History</a>
+</nav>
+</div>
+<!-- Right Header Status & User -->
+<div class="flex items-center gap-4">
+<div class="hidden md:flex items-center gap-2 px-3 py-1.5 bg-subtle rounded-full border border-borderline">
+<span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+<span class="font-mono text-xs text-mutedtext">FastAPI VITE_API_BASE_URL:8000</span>
+</div>
+<div class="flex items-center gap-3 pl-3 border-l border-borderline">
+<div class="flex flex-col items-end">
+<span class="font-mono text-[10px] text-mutedtext uppercase font-medium">Demo ID</span>
+<span class="font-mono text-xs font-semibold text-headings tracking-tight">user_real_himesh</span>
+</div>
+<div class="w-9 h-9 rounded-full bg-slate-100 border border-slate-200 flex items-center justify-center text-slate-700">
+<span class="material-symbols-outlined text-[19px]">person</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Secondary Telemetry Ribbon -->
+<div class="w-full bg-subtle/70 px-6 sm:px-8 lg:px-12 py-1.5 border-t border-borderline/80 flex items-center justify-between text-mutedtext font-mono text-xs">
+<div class="flex items-center gap-4 overflow-x-auto whitespace-nowrap">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-emerald-600 text-[16px]">mic</span>
+<span class="text-slate-800 font-sans font-medium">Audio Engine: Ready</span>
+</div>
+<span class="text-borderline">|</span>
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-brand-600 text-[16px]">speed</span>
+<span>Latency: 28ms</span>
+</div>
+<span class="text-borderline">|</span>
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-amber-600 text-[16px]">graphic_eq</span>
+<span>Sample Rate: 48kHz (Float32)</span>
+</div>
+</div>
+<div class="flex items-center gap-2 shrink-0">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+<span class="text-slate-600 font-sans">WebSockets Connected</span>
+</div>
+</div>
+</header>
+<!-- Main Content Area -->
+<main class="w-full pt-28 pb-12 bg-canvas flex-1">
+<div class="w-full px-6 sm:px-8 lg:px-12 max-w-7xl mx-auto flex flex-col gap-6">
+<!-- Top Action Bar & Master CTA -->
+<div class="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4">
+<div class="flex flex-col">
+<div class="flex items-center gap-2 mb-1.5">
+<span class="px-2 py-0.5 rounded bg-brand-50 border border-brand-100 text-brand-700 font-mono text-[11px] font-semibold uppercase tracking-wider">Subsystem 04</span>
+<span class="text-mutedtext text-xs">|</span>
+<span class="text-emerald-700 font-mono text-xs font-medium">CorrectionService :: StateSync Active</span>
+</div>
+<h1 class="font-headline font-bold text-2xl sm:text-3xl text-headings">Learned Correction Memory</h1>
+<p class="text-mutedtext text-sm sm:text-base max-w-2xl mt-1">
+            Contextual neural memory cache adapting ASR models to personal acoustic idiosyncrasies and dialectal pitch nuances.
+          </p>
+</div>
+<div class="flex items-center gap-3 w-full sm:w-auto">
+<button class="flex-1 sm:flex-initial flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-white hover:bg-subtle text-headings border border-borderline shadow-sm transition-all text-sm font-medium" id="open-config-btn">
+<span class="material-symbols-outlined text-[19px] text-brand-600">tune</span>
+<span>Gateway Config</span>
+</button>
+<a class="flex-1 sm:flex-initial flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-medium text-sm shadow-md shadow-brand-600/20 transition-all" data-path="practice-&amp;-record" href="#">
+<span class="material-symbols-outlined text-[20px]">mic</span>
+<span>Start New Practice Session</span>
+</a>
+</div>
+</div>
+<!-- Quick Stats Bento Strip -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+<!-- Stat Card 1 -->
+<div class="p-5 rounded-2xl bg-card border border-borderline flex flex-col justify-between shadow-sm relative overflow-hidden">
+<div class="flex items-center justify-between text-mutedtext font-mono text-xs font-semibold uppercase tracking-wider">
+<span>Active In-Memory Rules</span>
+<div class="w-8 h-8 rounded-lg bg-brand-50 text-brand-600 flex items-center justify-center">
+<span class="material-symbols-outlined text-[20px]">psychology</span>
+</div>
+</div>
+<div class="mt-4 flex items-baseline gap-2.5">
+<span class="font-headline font-bold text-3xl sm:text-4xl text-headings">3</span>
+<span class="font-mono text-xs text-emerald-600 font-semibold bg-emerald-50 px-2 py-0.5 rounded border border-emerald-100">100% Verified</span>
+</div>
+<span class="mt-3 text-xs text-mutedtext truncate">Target user scope: <strong class="text-headings font-mono">user_real_himesh</strong></span>
+</div>
+<!-- Stat Card 2 -->
+<div class="p-5 rounded-2xl bg-card border border-borderline flex flex-col justify-between shadow-sm relative overflow-hidden">
+<div class="flex items-center justify-between text-mutedtext font-mono text-xs font-semibold uppercase tracking-wider">
+<span>Today's Sessions</span>
+<div class="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center">
+<span class="material-symbols-outlined text-[20px]">timeline</span>
+</div>
+</div>
+<div class="mt-4 flex items-baseline gap-2.5">
+<span class="font-headline font-bold text-3xl sm:text-4xl text-headings">3</span>
+<span class="text-xs text-mutedtext font-medium">Completed</span>
+</div>
+<span class="mt-3 text-xs text-emerald-700 font-mono font-medium flex items-center gap-1">
+<span class="material-symbols-outlined text-[15px]">trending_up</span> +8.5 Composite Lift
+          </span>
+</div>
+<!-- Stat Card 3 -->
+<div class="p-5 rounded-2xl bg-card border border-borderline flex flex-col justify-between shadow-sm relative overflow-hidden">
+<div class="flex items-center justify-between text-mutedtext font-mono text-xs font-semibold uppercase tracking-wider">
+<span>Acoustic Inference Cache</span>
+<div class="w-8 h-8 rounded-lg bg-amber-50 text-amber-600 flex items-center justify-center">
+<span class="material-symbols-outlined text-[20px]">storage</span>
+</div>
+</div>
+<div class="mt-4 flex items-baseline gap-2.5">
+<span class="font-mono font-bold text-3xl sm:text-4xl text-headings">28<span class="text-mutedtext font-normal text-sm">ms</span></span>
+<span class="font-mono text-xs text-amber-700 font-semibold bg-amber-50 px-2 py-0.5 rounded border border-amber-100">Hot In-Memory</span>
+</div>
+<span class="mt-3 text-xs text-mutedtext">Zero pipeline overhead</span>
+</div>
+</div>
+<!-- Main Section: Memory Cache Table -->
+<div class="flex flex-col bg-card rounded-2xl border border-borderline shadow-sm overflow-hidden">
+<!-- Panel Header -->
+<div class="p-5 bg-subtle/50 border-b border-borderline flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+<div class="flex items-center gap-3.5">
+<div class="w-10 h-10 rounded-xl bg-brand-50 border border-brand-100 flex items-center justify-center text-brand-600 shadow-sm">
+<span class="material-symbols-outlined text-[22px]">memory</span>
+</div>
+<div class="flex flex-col">
+<div class="flex items-center gap-2 flex-wrap">
+<span class="font-headline font-bold text-lg text-headings">Personal Lexicon Overrides</span>
+<span class="px-2 py-0.5 rounded-md bg-white border border-borderline text-emerald-700 font-mono text-xs font-semibold shadow-2xs">user_real_himesh</span>
+</div>
+<span class="font-mono text-xs text-mutedtext mt-0.5">GET /api/v1/corrections/user_real_himesh</span>
+</div>
+</div>
+<div class="flex items-center gap-2.5">
+<button class="flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-white border border-borderline hover:bg-slate-50 text-headings text-xs font-medium shadow-2xs transition-all" id="refresh-memory-btn">
+<span class="material-symbols-outlined text-[16px] text-slate-500">sync</span>
+<span>Sync Cache</span>
+</button>
+<span class="px-2.5 py-1 rounded-lg bg-emerald-50 border border-emerald-200/80 text-emerald-700 font-medium text-xs flex items-center gap-1.5">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> 3 Active Directives
+            </span>
+</div>
+</div>
+<!-- Table Content -->
+<div class="w-full overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-subtle/70 border-b border-borderline text-mutedtext font-mono text-[11px] font-semibold uppercase tracking-wider">
+<th class="py-3 px-6">Syntactic Trigger</th>
+<th class="py-3 px-6">Raw STT (Observed)</th>
+<th class="py-3 px-6">Corrected Target</th>
+<th class="py-3 px-6 text-center">Hits</th>
+<th class="py-3 px-6">Acoustic Certainty</th>
+<th class="py-3 px-6 text-right">Status</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-borderline font-sans text-sm">
+<!-- Row 1 -->
+<tr class="hover:bg-slate-50/80 transition-colors">
+<td class="py-4 px-6">
+<div class="flex items-center gap-1.5 font-mono text-xs text-headings">
+<span class="text-mutedtext font-normal">context:</span>
+<span class="px-2 py-0.5 rounded bg-subtle text-headings font-medium border border-slate-200">"my name is ..."</span>
+</div>
+</td>
+<td class="py-4 px-6">
+<span class="inline-flex items-center px-2.5 py-1 rounded-md bg-rose-50 border border-rose-200 text-rose-700 font-mono text-xs font-medium">image</span>
+</td>
+<td class="py-4 px-6">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-emerald-600 text-[16px]">arrow_forward</span>
+<span class="inline-flex items-center px-2.5 py-1 rounded-md bg-emerald-50 border border-emerald-200 text-emerald-700 font-mono text-xs font-semibold">Himesh</span>
+</div>
+</td>
+<td class="py-4 px-6 text-center font-mono text-xs font-medium text-headings">
+                  3
+                </td>
+<td class="py-4 px-6">
+<div class="flex items-center gap-2.5">
+<div class="w-24 h-2 bg-slate-100 rounded-full overflow-hidden border border-slate-200">
+<div class="h-full bg-emerald-500 rounded-full" style="width: 98%"></div>
+</div>
+<span class="font-mono text-xs font-semibold text-headings">98%</span>
+</div>
+</td>
+<td class="py-4 px-6 text-right">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 font-mono text-xs font-medium">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> Active Memory
+                  </span>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-slate-50/80 transition-colors">
+<td class="py-4 px-6">
+<div class="flex items-center gap-1.5 font-mono text-xs text-headings">
+<span class="text-mutedtext font-normal">context:</span>
+<span class="px-2 py-0.5 rounded bg-subtle text-headings font-medium border border-slate-200">"axe not what ..."</span>
+</div>
+</td>
+<td class="py-4 px-6">
+<span class="inline-flex items-center px-2.5 py-1 rounded-md bg-rose-50 border border-rose-200 text-rose-700 font-mono text-xs font-medium">axe</span>
+</td>
+<td class="py-4 px-6">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-emerald-600 text-[16px]">arrow_forward</span>
+<span class="inline-flex items-center px-2.5 py-1 rounded-md bg-emerald-50 border border-emerald-200 text-emerald-700 font-mono text-xs font-semibold">ask</span>
+</div>
+</td>
+<td class="py-4 px-6 text-center font-mono text-xs font-medium text-headings">
+                  2
+                </td>
+<td class="py-4 px-6">
+<div class="flex items-center gap-2.5">
+<div class="w-24 h-2 bg-slate-100 rounded-full overflow-hidden border border-slate-200">
+<div class="h-full bg-emerald-500 rounded-full" style="width: 91%"></div>
+</div>
+<span class="font-mono text-xs font-semibold text-headings">91%</span>
+</div>
+</td>
+<td class="py-4 px-6 text-right">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 font-mono text-xs font-medium">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> Active Memory
+                  </span>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-slate-50/80 transition-colors">
+<td class="py-4 px-6">
+<div class="flex items-center gap-1.5 font-mono text-xs text-headings">
+<span class="text-mutedtext font-normal">context:</span>
+<span class="px-2 py-0.5 rounded bg-subtle text-headings font-medium border border-slate-200">"my fellow americans"</span>
+</div>
+</td>
+<td class="py-4 px-6">
+<span class="inline-flex items-center px-2.5 py-1 rounded-md bg-rose-50 border border-rose-200 text-rose-700 font-mono text-xs font-medium">fell ow</span>
+</td>
+<td class="py-4 px-6">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-emerald-600 text-[16px]">arrow_forward</span>
+<span class="inline-flex items-center px-2.5 py-1 rounded-md bg-emerald-50 border border-emerald-200 text-emerald-700 font-mono text-xs font-semibold">fellow</span>
+</div>
+</td>
+<td class="py-4 px-6 text-center font-mono text-xs font-medium text-headings">
+                  1
+                </td>
+<td class="py-4 px-6">
+<div class="flex items-center gap-2.5">
+<div class="w-24 h-2 bg-slate-100 rounded-full overflow-hidden border border-slate-200">
+<div class="h-full bg-emerald-500 rounded-full" style="width: 87%"></div>
+</div>
+<span class="font-mono text-xs font-semibold text-headings">87%</span>
+</div>
+</td>
+<td class="py-4 px-6 text-right">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 font-mono text-xs font-medium">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> Active Memory
+                  </span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Safety Callout Strip -->
+<div class="p-4 sm:p-5 bg-brand-50/60 border-t border-brand-100 flex items-start gap-3 text-bodytext">
+<span class="material-symbols-outlined text-brand-600 text-[22px] shrink-0 mt-0.5">verified_user</span>
+<div class="flex flex-col gap-0.5">
+<span class="font-headline font-semibold text-headings text-sm">Context-Aware Preservation Guardrail</span>
+<p class="text-xs sm:text-sm text-bodytext">
+              Corrections are strictly restricted to matching syntactic windows, guarding broader vocabulary integrity. For example, generic usage like <span class="italic font-medium text-headings">"This is an image of the skyline"</span> remains totally unmutated.
+            </p>
+</div>
+</div>
+</div>
+<!-- Practice History & Progression -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-5">
+<!-- History Chart & Session Metrics (8 Cols) -->
+<div class="lg:col-span-8 flex flex-col gap-4 bg-card p-5 sm:p-6 rounded-2xl border border-borderline shadow-sm">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+<div>
+<span class="font-mono text-[11px] text-brand-600 font-semibold uppercase tracking-widest">Acoustic Evolution</span>
+<h2 class="font-headline font-bold text-xl text-headings mt-0.5">Pronunciation Score Velocity</h2>
+</div>
+<div class="flex items-center gap-2">
+<span class="text-xs text-mutedtext bg-subtle px-3 py-1 rounded-lg border border-borderline">
+                Practice attempts: <strong class="text-emerald-700 font-mono">3 completed today</strong>
+</span>
+<button class="text-mutedtext hover:text-headings p-1.5 rounded-lg border border-transparent hover:border-borderline hover:bg-subtle transition-colors" id="toggle-empty-state-btn" title="Simulate Empty History">
+<span class="material-symbols-outlined text-[19px]">rule_folder</span>
+</button>
+</div>
+</div>
+<!-- Populated State: SVG Trendline & Attempts -->
+<div class="flex flex-col gap-5" id="populated-history-view">
+<!-- Trend Graph Card -->
+<div class="w-full bg-slate-50/80 p-4 rounded-xl border border-borderline flex flex-col gap-2">
+<div class="flex items-center justify-between text-xs text-mutedtext">
+<span class="font-medium">Overall Composite Score</span>
+<span class="font-mono font-semibold text-emerald-600">88.0 → 92.4 → 96.5</span>
+</div>
+<!-- Inline SVG Sparkline / Curve (Clean Light Styling) -->
+<div class="w-full h-40 relative flex items-center justify-center">
+<svg class="w-full h-full overflow-visible" fill="none" preserveaspectratio="none" viewbox="0 0 500 120">
+<!-- Grid lines -->
+<line class="text-slate-200" stroke="currentColor" stroke-dasharray="4 4" stroke-width="1" x1="0" x2="500" y1="20" y2="20"></line>
+<line class="text-slate-200" stroke="currentColor" stroke-dasharray="4 4" stroke-width="1" x1="0" x2="500" y1="60" y2="60"></line>
+<line class="text-slate-200" stroke="currentColor" stroke-dasharray="4 4" stroke-width="1" x1="0" x2="500" y1="100" y2="100"></line>
+<!-- Gradient Fill Under Trendline -->
+<defs>
+<lineargradient id="scoreGlowLight" x1="0" x2="0" y1="0" y2="1">
+<stop offset="0%" stop-color="#10b981" stop-opacity="0.22"></stop>
+<stop offset="100%" stop-color="#10b981" stop-opacity="0.01"></stop>
+</lineargradient>
+</defs>
+<path d="M 50 80 Q 200 60 250 48 T 450 16 L 450 115 L 50 115 Z" fill="url(#scoreGlowLight)"></path>
+<!-- Connecting Trend Path -->
+<path d="M 50 80 Q 200 60 250 48 T 450 16" stroke="#059669" stroke-linecap="round" stroke-width="3.5"></path>
+<!-- Data Node 1: 88.0 -->
+<circle class="fill-white stroke-emerald-600" cx="50" cy="80" r="5.5" stroke-width="3"></circle>
+<!-- Data Node 2: 92.4 -->
+<circle class="fill-white stroke-emerald-600" cx="250" cy="48" r="5.5" stroke-width="3"></circle>
+<!-- Data Node 3: 96.5 -->
+<circle class="fill-emerald-600 stroke-white" cx="450" cy="16" r="6.5" stroke-width="2.5"></circle>
+</svg>
+</div>
+<div class="flex items-center justify-between text-mutedtext font-mono text-xs px-2 sm:px-4">
+<span>Attempt #1 (09:12 AM) • 88.0</span>
+<span>Attempt #2 (10:45 AM) • 92.4</span>
+<span class="text-emerald-700 font-bold">Attempt #3 (11:30 AM) • 96.5</span>
+</div>
+</div>
+<!-- Session Attempt Mini-Cards -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+<div class="p-3.5 rounded-xl bg-subtle/80 border border-borderline flex flex-col justify-between">
+<div class="flex items-center justify-between font-mono text-[11px] text-mutedtext font-semibold">
+<span>ATTEMPT 01</span>
+<span>09:12 AM</span>
+</div>
+<div class="my-2 flex items-baseline justify-between">
+<span class="font-headline font-bold text-2xl text-headings font-mono">88.0</span>
+<span class="px-2 py-0.5 rounded bg-amber-50 border border-amber-200 text-amber-700 font-mono text-[11px] font-semibold">Baseline</span>
+</div>
+<span class="text-mutedtext text-xs truncate">"my name is image..."</span>
+</div>
+<div class="p-3.5 rounded-xl bg-subtle/80 border border-borderline flex flex-col justify-between">
+<div class="flex items-center justify-between font-mono text-[11px] text-mutedtext font-semibold">
+<span>ATTEMPT 02</span>
+<span>10:45 AM</span>
+</div>
+<div class="my-2 flex items-baseline justify-between">
+<span class="font-headline font-bold text-2xl text-headings font-mono">92.4</span>
+<span class="px-2 py-0.5 rounded bg-emerald-50 border border-emerald-200 text-emerald-700 font-mono text-[11px] font-semibold">+4.4</span>
+</div>
+<span class="text-mutedtext text-xs truncate">"axe not what your..."</span>
+</div>
+<div class="p-3.5 rounded-xl bg-emerald-50/50 border-2 border-emerald-400/80 flex flex-col justify-between shadow-xs">
+<div class="flex items-center justify-between font-mono text-[11px] text-emerald-800 font-bold">
+<span>ATTEMPT 03 (LATEST)</span>
+<span>11:30 AM</span>
+</div>
+<div class="my-2 flex items-baseline justify-between">
+<span class="font-headline font-bold text-2xl text-emerald-700 font-mono">96.5</span>
+<span class="px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 font-mono text-[11px] font-bold">+4.1</span>
+</div>
+<span class="text-slate-600 text-xs truncate">"my fellow americans..."</span>
+</div>
+</div>
+</div>
+<!-- Simulated Empty State (Hidden by default, toggleable via icon) -->
+<div class="hidden flex-col items-center justify-center p-8 bg-subtle/50 border border-dashed border-borderline rounded-xl text-center gap-2" id="empty-history-view">
+<div class="w-12 h-12 rounded-full bg-white border border-borderline flex items-center justify-center text-mutedtext shadow-sm">
+<span class="material-symbols-outlined text-[24px]">history_toggle_off</span>
+</div>
+<span class="font-headline font-bold text-base text-headings">No practice history yet</span>
+<p class="text-xs sm:text-sm text-mutedtext max-w-sm">
+              Complete your inaugural vocal challenge in the Practice &amp; Record console to trigger neural pronunciation benchmarking.
+            </p>
+<a class="mt-2 px-4 py-2 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-medium text-xs shadow-sm transition-all" data-path="practice-&amp;-record" href="#">
+              Record First Speech Sample
+            </a>
+</div>
+</div>
+<!-- Live Pipeline Inspector (4 Cols) -->
+<div class="lg:col-span-4 flex flex-col gap-4 bg-card p-5 sm:p-6 rounded-2xl border border-borderline shadow-sm justify-between">
+<div class="flex flex-col gap-2">
+<div class="flex items-center gap-1.5 text-brand-600 font-mono text-xs font-semibold uppercase tracking-wider">
+<span class="material-symbols-outlined text-[17px]">terminal</span>
+<span>Acoustic Pipeline Trace</span>
+</div>
+<h3 class="font-headline font-bold text-lg text-headings">Neural Correction Loop</h3>
+<p class="text-xs text-mutedtext leading-relaxed">
+              Incoming phoneme distributions are intersected with personal n-gram token graphs prior to semantic TTS feedback generation.
+            </p>
+<div class="flex flex-col gap-2 mt-3 font-mono text-xs">
+<div class="p-2.5 rounded-lg bg-subtle border border-borderline flex items-center justify-between">
+<span class="text-mutedtext font-medium">WAV_STREAM</span>
+<span class="text-emerald-700 font-semibold">48kHz / PCM_F32</span>
+</div>
+<div class="p-2.5 rounded-lg bg-subtle border border-borderline flex items-center justify-between">
+<span class="text-mutedtext font-medium">TOKEN_MATCH</span>
+<span class="text-brand-600 font-semibold">Regex+Levenshtein</span>
+</div>
+<div class="p-2.5 rounded-lg bg-subtle border border-borderline flex items-center justify-between">
+<span class="text-mutedtext font-medium">SYNTACTIC_WIN</span>
+<span class="text-headings font-semibold">±2 Adjacent Tokens</span>
+</div>
+<div class="p-2.5 rounded-lg bg-subtle border border-borderline flex items-center justify-between">
+<span class="text-mutedtext font-medium">SCORE_ALGO</span>
+<span class="text-amber-700 font-semibold">GOP (Goodness of Pron.)</span>
+</div>
+</div>
+</div>
+<div class="p-3.5 rounded-xl bg-slate-50 border border-borderline flex items-start gap-3 mt-2">
+<span class="material-symbols-outlined text-emerald-600 text-[22px] shrink-0 mt-0.5">auto_awesome</span>
+<div class="flex flex-col gap-0.5">
+<span class="font-headline font-semibold text-xs text-headings">Self-Healing Memory</span>
+<span class="text-[11px] leading-snug text-mutedtext">Auto-purges rules if native articulation reaches &gt;95% over 10 consecutive sessions.</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Gateway & API Configuration Modal (Light Theme) -->
+<div class="fixed inset-0 z-50 bg-slate-900/40 backdrop-blur-sm hidden items-center justify-center p-4" id="config-modal">
+<div class="w-full max-w-xl bg-card rounded-2xl shadow-xl border border-borderline flex flex-col overflow-hidden animate-in fade-in zoom-in-95 duration-200">
+<!-- Modal Header -->
+<div class="p-5 bg-subtle border-b border-borderline flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-9 h-9 rounded-xl bg-brand-600 text-white flex items-center justify-center shadow-sm">
+<span class="material-symbols-outlined text-[20px]">hub</span>
+</div>
+<div>
+<h3 class="font-headline font-bold text-base text-headings">Centralized API Runtime Config</h3>
+<span class="font-mono text-xs text-mutedtext">Active Service: FastAPI Acoustic Engine</span>
+</div>
+</div>
+<button class="w-8 h-8 rounded-lg flex items-center justify-center bg-white border border-borderline hover:bg-slate-50 text-mutedtext hover:text-headings transition-colors" id="close-config-btn">
+<span class="material-symbols-outlined text-[18px]">close</span>
+</button>
+</div>
+<!-- Modal Body Form -->
+<div class="p-6 flex flex-col gap-4">
+<!-- Base URL Config -->
+<div class="flex flex-col gap-1.5">
+<label class="font-mono text-xs font-semibold text-mutedtext uppercase tracking-wider flex items-center justify-between">
+<span>VITE_API_BASE_URL (Gateway Host)</span>
+<span class="text-emerald-600 font-mono">Active Loopback</span>
+</label>
+<div class="relative flex items-center">
+<span class="material-symbols-outlined absolute left-3 text-mutedtext text-[18px]">dns</span>
+<input class="w-full pl-10 pr-3.5 py-2.5 rounded-xl bg-slate-50 border border-borderline font-mono text-xs text-headings focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-600" id="api-base-input" type="text" value="http://localhost:8000"/>
+</div>
+</div>
+<!-- Active User Identifier -->
+<div class="flex flex-col gap-1.5">
+<label class="font-mono text-xs font-semibold text-mutedtext uppercase tracking-wider">
+              Active User Context (Path Parameter)
+            </label>
+<div class="relative flex items-center">
+<span class="material-symbols-outlined absolute left-3 text-mutedtext text-[18px]">fingerprint</span>
+<input class="w-full pl-10 pr-3.5 py-2.5 rounded-xl bg-slate-50 border border-borderline font-mono text-xs text-headings focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-600" id="api-user-input" type="text" value="user_real_himesh"/>
+</div>
+</div>
+<!-- Registered Endpoints Mapping Table -->
+<div class="flex flex-col gap-1.5 mt-1">
+<label class="font-mono text-xs font-semibold text-mutedtext uppercase tracking-wider">
+              Microservice Endpoints Map
+            </label>
+<div class="rounded-xl bg-subtle border border-borderline p-2 flex flex-col gap-1.5 font-mono text-xs">
+<div class="flex items-center justify-between py-1.5 px-2.5 rounded-lg bg-white border border-borderline/60">
+<span class="text-emerald-700 font-semibold">GET</span>
+<span class="text-headings truncate">/api/v1/corrections/{user_id}</span>
+<span class="text-mutedtext">Sync Memory</span>
+</div>
+<div class="flex items-center justify-between py-1.5 px-2.5 rounded-lg bg-white border border-borderline/60">
+<span class="text-brand-600 font-semibold">POST</span>
+<span class="text-headings truncate">/api/v1/corrections/learn</span>
+<span class="text-mutedtext">Register Rule</span>
+</div>
+<div class="flex items-center justify-between py-1.5 px-2.5 rounded-lg bg-white border border-borderline/60">
+<span class="text-emerald-700 font-semibold">GET</span>
+<span class="text-headings truncate">/api/v1/sessions/{user_id}/history</span>
+<span class="text-mutedtext">Progress Stream</span>
+</div>
+<div class="flex items-center justify-between py-1.5 px-2.5 rounded-lg bg-white border border-borderline/60">
+<span class="text-amber-700 font-semibold">WS</span>
+<span class="text-headings truncate">/api/v1/stream/phonemes</span>
+<span class="text-mutedtext">STT Feed</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Modal Footer -->
+<div class="p-5 bg-subtle border-t border-borderline flex items-center justify-end gap-3">
+<button class="px-4 py-2 rounded-xl bg-white border border-borderline hover:bg-slate-50 font-medium text-xs text-headings transition-colors" id="cancel-config-btn">
+            Dismiss
+          </button>
+<button class="px-5 py-2 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-medium text-xs shadow-sm transition-all" id="save-config-btn">
+            Save &amp; Reconnect
+          </button>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="w-full bg-white border-t border-borderline mt-auto">
+<div class="w-full px-6 sm:px-8 lg:px-12 py-4 flex flex-col sm:flex-row items-center justify-between gap-3 text-mutedtext font-mono text-xs">
+<span>© 2025 Resonant Voice AI. Neural Acoustic Architecture.</span>
+<div class="flex items-center gap-6">
+<span>Phonetic Engine v2.4.1</span>
+<span>FastAPI Gateway: Active</span>
+</div>
+</div>
+</footer>
+
+
+  <script src="../shared/api.js"></script>
+  <script src="../shared/state.js"></script>
+  <script src="../shared/history_screen.js"></script>
+</body></html>

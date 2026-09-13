@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Plus+Jakarta+Sans:wght@600;700;800&amp;family=JetBrains+Mono:wght@500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script><script id="tailwind-config">tailwind.config={"darkMode":"class","theme":{"extend":{"colors":{"slate":{"850":"#172033"},"surface-card":"#ffffff","surface-subtle":"#f1f5f9","surface-border":"#e2e8f0"},"fontFamily":{"label-lg":["Inter"],"body-sm":["Inter"],"label-sm":["Inter"],"headline-md":["Plus Jakarta Sans"],"headline-lg":["Plus Jakarta Sans"],"display-lg":["Plus Jakarta Sans"],"display-lg-mobile":["Plus Jakarta Sans"],"label-md":["Inter"],"headline-sm":["Plus Jakarta Sans"],"headline-lg-mobile":["Plus Jakarta Sans"],"body-lg":["Inter"],"body-md":["Inter"],"code-metric":["JetBrains Mono","monospace"]},"spacing":{"gutter":"1.5rem","space-md":"1rem","space-sm":"0.5rem","space-xs":"0.25rem","space-lg":"1.5rem","space-xl":"2.5rem","margin":"2rem"}}}}</script></head><body class="bg-[#f8fafc] font-['Inter'] text-slate-700 antialiased min-h-screen flex flex-col"><header class="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-xl border-b border-slate-200 shadow-sm"><div class="h-20 w-full px-margin flex items-center justify-between gap-space-lg"><div class="flex items-center gap-space-xl"><div class="flex items-center gap-space-sm"><div class="w-10 h-10 rounded-xl bg-indigo-600 flex items-center justify-center shadow-md shadow-indigo-200"><span class="material-symbols-outlined text-white text-[22px]">graphic_eq</span></div><div class="flex flex-col"><span class="font-['Plus_Jakarta_Sans'] font-bold text-[18px] text-slate-900 tracking-tight leading-none">Resonant Voice AI</span><span class="font-['JetBrains_Mono'] text-[11px] font-semibold text-indigo-600 tracking-wider uppercase mt-0.5">Acoustic Neural Engine</span></div></div><nav class="hidden xl:flex items-center gap-1.5 p-1 bg-slate-100 rounded-xl border border-slate-200" data-active-classes="bg-white text-indigo-600 shadow-sm font-semibold rounded-lg"><a class="px-3.5 py-1.5 text-xs font-medium text-slate-600 hover:text-slate-900 hover:bg-slate-200/60 transition-all rounded-lg" data-path="practice-&amp;-record" href="#">Practice &amp; Record</a><a aria-current="page" class="px-3.5 py-1.5 text-xs font-semibold text-indigo-600 bg-white shadow-sm transition-all rounded-lg" data-path="analysis-&amp;-results" href="#">Analysis &amp; Results</a><a class="px-3.5 py-1.5 text-xs font-medium text-slate-600 hover:text-slate-900 hover:bg-slate-200/60 transition-all rounded-lg" data-path="learned-corrections" href="#">Learned Corrections</a><a class="px-3.5 py-1.5 text-xs font-medium text-slate-600 hover:text-slate-900 hover:bg-slate-200/60 transition-all rounded-lg" data-path="session-history" href="#">Session History</a></nav></div><div class="flex items-center gap-space-md"><div class="hidden md:flex items-center gap-1.5 px-3 py-1 bg-slate-100 rounded-full border border-slate-200"><span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span><span class="text-xs text-slate-600 font-['JetBrains_Mono']">FastAPI VITE_API_BASE_URL:8000</span></div><div class="flex items-center gap-space-sm pl-space-sm border-l border-slate-200"><div class="flex flex-col items-end"><span class="text-[10px] text-slate-400 font-semibold tracking-wider uppercase">Demo ID</span><span class="text-xs font-semibold text-slate-800 font-['JetBrains_Mono'] tracking-tight">user_real_himesh</span></div><div class="w-8 h-8 rounded-full bg-indigo-100 border border-indigo-200 flex items-center justify-center"><span class="material-symbols-outlined text-indigo-600 text-[18px]">person</span></div></div></div></div><div class="w-full bg-slate-50/90 px-margin py-1.5 border-t border-slate-200 flex items-center justify-between text-slate-500 text-xs"><div class="flex items-center gap-space-md"><div class="flex items-center gap-1.5"><span class="material-symbols-outlined text-emerald-600 text-[16px]">mic</span><span class="text-slate-800 font-medium">Audio Engine: Ready</span></div><span class="text-slate-300">|</span><div class="flex items-center gap-1.5"><span class="material-symbols-outlined text-indigo-600 text-[16px]">speed</span><span>Latency: 28ms</span></div><span class="text-slate-300">|</span><div class="flex items-center gap-1.5"><span class="material-symbols-outlined text-amber-600 text-[16px]">graphic_eq</span><span>Sample Rate: 48kHz (Float32)</span></div></div><div class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span><span class="text-slate-600 font-medium">WebSockets Connected</span></div></div></header><main class="w-full pt-20 bg-[#f8fafc] min-h-screen flex flex-col flex-1"><div class="flex flex-col w-full pb-12">
+<section class="w-full px-margin py-space-lg flex flex-col gap-space-lg max-w-7xl mx-auto">
+<!-- Top Meta Context Strip -->
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-space-md p-space-md rounded-xl bg-white border border-slate-200 shadow-sm">
+<div class="flex items-center gap-space-md">
+<div class="w-10 h-10 rounded-lg bg-indigo-50 border border-indigo-100 flex items-center justify-center text-indigo-600">
+<span class="material-symbols-outlined text-[24px]">insights</span>
+</div>
+<div class="flex flex-col">
+<div class="flex items-center gap-space-xs">
+<span class="font-['Plus_Jakarta_Sans'] text-[18px] font-bold text-slate-900">Acoustic Analysis Report</span>
+<span class="px-2.5 py-0.5 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 font-['JetBrains_Mono'] text-[10px] font-bold uppercase tracking-wider">Processed</span>
+</div>
+<span class="text-xs text-slate-500 mt-0.5">Endpoint: <span class="font-['JetBrains_Mono'] text-slate-700 font-semibold">POST /api/v1/voice-learning/process</span> • Latency: 412ms</span>
+</div>
+</div>
+<div class="flex items-center gap-space-sm self-start md:self-auto">
+<button class="px-3.5 py-2 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-200 font-medium text-xs flex items-center gap-1.5 transition-all shadow-sm" id="btn-export-telemetry">
+<span class="material-symbols-outlined text-[16px]">file_download</span>
+          Export JSON
+        </button>
+<button class="px-3.5 py-2 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-200 font-medium text-xs flex items-center gap-1.5 transition-all shadow-sm">
+<span class="material-symbols-outlined text-[16px]">share</span>
+          Share Telemetry
+        </button>
+</div>
+</div>
+<!-- 2. PERSONAL CORRECTION DETECTED CALLOUT -->
+<div class="relative overflow-hidden rounded-xl bg-[#fffbeb] border border-[#fde68a] p-space-lg shadow-sm" id="correction-banner">
+<div class="flex flex-col lg:flex-row lg:items-center justify-between gap-space-lg relative z-10">
+<div class="flex items-start gap-space-md">
+<div class="w-12 h-12 rounded-xl bg-amber-100 border border-amber-200 text-amber-700 flex items-center justify-center flex-shrink-0 mt-0.5 shadow-sm">
+<span class="material-symbols-outlined text-[28px]">auto_fix_high</span>
+</div>
+<div class="flex flex-col gap-1 max-w-2xl">
+<div class="flex items-center gap-space-sm flex-wrap">
+<span class="font-['Plus_Jakarta_Sans'] text-[18px] font-bold text-slate-900">Personal Correction Detected</span>
+<span class="px-2.5 py-0.5 rounded-md bg-amber-100 text-amber-800 border border-amber-200 font-['JetBrains_Mono'] text-xs font-semibold tracking-wide uppercase">Confidence: 99.4%</span>
+</div>
+<p class="text-sm text-slate-700">
+              Context match: <span class="text-slate-900 font-medium">“My name is <span class="line-through text-rose-600 bg-rose-50 px-1.5 py-0.5 rounded border border-rose-200">image</span> → <span class="text-emerald-700 bg-emerald-100 px-1.5 py-0.5 rounded font-bold border border-emerald-300">Himesh</span>”</span>
+</p>
+<p class="text-xs text-slate-500">
+              Saved corrections will be remembered for future practice sessions with context-awareness and neural memory bias.
+            </p>
+</div>
+</div>
+<div class="flex items-center gap-space-sm flex-shrink-0 self-end lg:self-center">
+<button class="px-4 py-2 rounded-lg bg-white hover:bg-slate-50 text-slate-700 border border-amber-300 font-semibold text-xs shadow-sm transition-all flex items-center gap-1.5" id="btn-reject-correction">
+<span class="material-symbols-outlined text-[18px]">close</span>
+            Reject
+          </button>
+<button class="px-4 py-2 rounded-lg bg-[#10b981] hover:bg-emerald-600 text-white font-semibold text-xs shadow-md shadow-emerald-500/20 transition-all flex items-center gap-2" id="btn-confirm-correction">
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span>Confirm Correction</span>
+</button>
+</div>
+</div>
+</div>
+<!-- 1. TRANSCRIPT COMPARISON (CRITICAL REQUIREMENT) -->
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-space-lg">
+<!-- Original STT Transcript -->
+<div class="rounded-xl bg-white border border-slate-200 p-space-lg flex flex-col justify-between gap-space-md shadow-sm">
+<div class="flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<span class="text-[11px] font-bold text-slate-500 uppercase tracking-wider font-['JetBrains_Mono']">Acoustic ASR Layer</span>
+<span class="px-2 py-0.5 rounded-md bg-slate-100 border border-slate-200 text-slate-600 text-xs font-['JetBrains_Mono']">faster-whisper raw output</span>
+</div>
+<div class="pt-space-xs">
+<h3 class="font-['Plus_Jakarta_Sans'] text-base font-medium text-slate-600">Original STT Transcript (Unedited)</h3>
+</div>
+<div class="p-space-md rounded-lg bg-slate-50 border border-slate-200 min-h-[96px] flex items-center">
+<p class="font-['Plus_Jakarta_Sans'] text-2xl font-semibold text-slate-900 tracking-normal">
+              “My name is <span class="text-rose-700 bg-[#fee2e2] px-2.5 py-1 rounded-md border border-rose-300 font-bold">image</span>.”
+            </p>
+</div>
+</div>
+<div class="flex items-center justify-between pt-space-xs text-slate-500 text-xs">
+<span class="flex items-center gap-1 text-rose-600 font-medium">
+<span class="material-symbols-outlined text-[16px]">warning</span>
+            Phonetic hallucination flagged at token [image]
+          </span>
+<span class="font-['JetBrains_Mono'] text-slate-400">Beam Size: 5</span>
+</div>
+</div>
+<!-- Corrected Transcript -->
+<div class="rounded-xl bg-white border border-emerald-200 p-space-lg flex flex-col justify-between gap-space-md shadow-sm">
+<div class="flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<span class="text-[11px] font-bold text-emerald-700 uppercase tracking-wider font-['JetBrains_Mono']">Semantic Memory Layer</span>
+<span class="px-2 py-0.5 rounded-md bg-emerald-50 border border-emerald-200 text-emerald-700 text-xs font-semibold">Correction Memory Applied</span>
+</div>
+<div class="pt-space-xs">
+<h3 class="font-['Plus_Jakarta_Sans'] text-base font-bold text-slate-900">Corrected Transcript</h3>
+</div>
+<div class="p-space-md rounded-lg bg-emerald-50/40 border border-emerald-100 min-h-[96px] flex items-center">
+<p class="font-['Plus_Jakarta_Sans'] text-2xl font-semibold text-slate-900 tracking-normal">
+              “My name is <span class="text-emerald-700 bg-[#dcfce7] px-2.5 py-1 rounded-md font-bold cursor-pointer hover:bg-emerald-200 border border-emerald-300 transition-colors" title="Click to hear phoneme target">Himesh</span>.”
+            </p>
+</div>
+</div>
+<div class="flex items-center justify-between pt-space-xs text-slate-600 text-xs">
+<span class="flex items-center gap-1 text-emerald-700 font-medium">
+<span class="material-symbols-outlined text-[16px] text-emerald-600">verified</span>
+            Resolved using user phonetic registry: <code class="font-['JetBrains_Mono'] text-slate-800 font-semibold">user_real_himesh</code>
+</span>
+<button class="text-indigo-600 hover:text-indigo-800 font-semibold transition-colors flex items-center gap-0.5">
+<span class="material-symbols-outlined text-[16px]">volume_up</span>
+            Target Audio
+          </button>
+</div>
+</div>
+</div>
+<!-- Middle Bento Row: 3. PRONUNCIATION SCORE CARD & 4. ACCENT OBSERVATION CARD -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg">
+<!-- 3. Pronunciation Score Card (8 Columns) -->
+<div class="lg:col-span-8 rounded-xl bg-white border border-slate-200 p-space-lg flex flex-col gap-space-lg shadow-sm">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-md">
+<div>
+<span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider font-['JetBrains_Mono']">Phonetic Accuracy Metrics</span>
+<h2 class="font-['Plus_Jakarta_Sans'] text-2xl font-bold text-slate-900">Pronunciation Breakdown</h2>
+</div>
+<span class="text-xs px-3 py-1 rounded-full bg-slate-100 text-slate-600 border border-slate-200 font-['JetBrains_Mono'] self-start sm:self-auto font-medium">
+            HMM-DNN Acoustic Alignment
+          </span>
+</div>
+<!-- Metric Hero & Sub-scores -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-space-lg items-center">
+<!-- Big Circular Gauge (Hero Score: 96.5) -->
+<div class="md:col-span-5 flex flex-col items-center justify-center p-space-md rounded-xl bg-slate-50 border border-slate-200">
+<div class="relative w-44 h-44 flex items-center justify-center">
+<svg class="w-full h-full transform -rotate-90" viewbox="0 0 160 160">
+<!-- Background track -->
+<circle class="text-slate-200" cx="80" cy="80" fill="transparent" r="68" stroke="currentColor" stroke-width="10"></circle>
+<!-- Progress ring: 96.5% of 427.25 = ~412.3 stroke-dasharray -->
+<circle class="text-emerald-500 transition-all duration-1000 ease-out" cx="80" cy="80" fill="transparent" r="68" stroke="currentColor" stroke-dasharray="427.25" stroke-dashoffset="14.95" stroke-linecap="round" stroke-width="10"></circle>
+</svg>
+<div class="absolute flex flex-col items-center justify-center text-center">
+<span class="font-['Plus_Jakarta_Sans'] text-4xl font-extrabold text-slate-900 leading-none tracking-tight">96.5</span>
+<span class="text-[10px] text-slate-400 font-semibold mt-1 uppercase tracking-widest font-['JetBrains_Mono']">Overall Score</span>
+<span class="text-xs text-emerald-600 font-bold mt-0.5">Native Equivalent</span>
+</div>
+</div>
+<span class="text-xs text-slate-500 mt-space-sm text-center">Calculated across 3 valid vocal tokens</span>
+</div>
+<!-- Sub-metrics authoritative -->
+<div class="md:col-span-7 flex flex-col justify-around gap-space-md">
+<!-- Accuracy -->
+<div class="flex flex-col gap-1.5">
+<div class="flex items-center justify-between text-slate-800 text-xs font-semibold">
+<span class="flex items-center gap-1.5">
+<span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
+                  Accuracy
+                </span>
+<span class="font-['JetBrains_Mono'] text-slate-900 font-bold">97.2%</span>
+</div>
+<div class="w-full h-2.5 rounded-full bg-slate-100 overflow-hidden border border-slate-200">
+<div class="h-full bg-emerald-500 rounded-full" style="width: 97.2%;"></div>
+</div>
+<span class="text-[11px] text-slate-400">Phoneme segment correspondence</span>
+</div>
+<!-- Fluency -->
+<div class="flex flex-col gap-1.5">
+<div class="flex items-center justify-between text-slate-800 text-xs font-semibold">
+<span class="flex items-center gap-1.5">
+<span class="w-2.5 h-2.5 rounded-full bg-indigo-600"></span>
+                  Fluency
+                </span>
+<span class="font-['JetBrains_Mono'] text-slate-900 font-bold">95.0%</span>
+</div>
+<div class="w-full h-2.5 rounded-full bg-slate-100 overflow-hidden border border-slate-200">
+<div class="h-full bg-indigo-600 rounded-full" style="width: 95.0%;"></div>
+</div>
+<span class="text-[11px] text-slate-400">Pacing, pause distribution, and continuity</span>
+</div>
+<!-- Completeness -->
+<div class="flex flex-col gap-1.5">
+<div class="flex items-center justify-between text-slate-800 text-xs font-semibold">
+<span class="flex items-center gap-1.5">
+<span class="w-2.5 h-2.5 rounded-full bg-teal-500"></span>
+                  Completeness
+                </span>
+<span class="font-['JetBrains_Mono'] text-slate-900 font-bold">98.1%</span>
+</div>
+<div class="w-full h-2.5 rounded-full bg-slate-100 overflow-hidden border border-slate-200">
+<div class="h-full bg-teal-500 rounded-full" style="width: 98.1%;"></div>
+</div>
+<span class="text-[11px] text-slate-400">No elided terminal stops or omissions</span>
+</div>
+</div>
+</div>
+<!-- Word-level Pronunciation Issues Table -->
+<div class="flex flex-col gap-space-sm pt-space-sm">
+<span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider font-['JetBrains_Mono']">Word-Level Phonemic Alignment</span>
+<div class="overflow-x-auto rounded-lg border border-slate-200 bg-white">
+<table class="w-full text-left text-xs">
+<thead class="bg-slate-50 border-b border-slate-200 text-slate-600 font-semibold uppercase tracking-wider text-[11px]">
+<tr>
+<th class="py-3 px-space-md">Target Word</th>
+<th class="py-3 px-space-md">Phonetic IPA</th>
+<th class="py-3 px-space-md">Diagnostic</th>
+<th class="py-3 px-space-md">Acoustic Score</th>
+<th class="py-3 px-space-md text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-slate-100">
+<!-- Word 1 -->
+<tr class="hover:bg-slate-50 transition-colors">
+<td class="py-3 px-space-md font-semibold text-slate-900">pronunciation</td>
+<td class="py-3 px-space-md font-['JetBrains_Mono'] text-amber-700 font-medium">/prəˌnʌn.siˈeɪ.ʃən/</td>
+<td class="py-3 px-space-md">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-amber-50 text-amber-800 border border-amber-200 text-[11px] font-medium">
+<span class="material-symbols-outlined text-[14px] text-amber-600">warning</span>
+                      Needs practice (phoneme /ʃən/)
+                    </span>
+</td>
+<td class="py-3 px-space-md font-['JetBrains_Mono'] font-bold text-amber-700">78.4%</td>
+<td class="py-3 px-space-md text-right">
+<button class="p-1 rounded hover:bg-slate-100 text-slate-500 hover:text-slate-800" title="Listen target">
+<span class="material-symbols-outlined text-[18px]">volume_up</span>
+</button>
+</td>
+</tr>
+<!-- Word 2 -->
+<tr class="hover:bg-slate-50 transition-colors">
+<td class="py-3 px-space-md font-semibold text-slate-900">English</td>
+<td class="py-3 px-space-md font-['JetBrains_Mono'] text-emerald-700 font-medium">/ˈɪŋ.ɡlɪʃ/</td>
+<td class="py-3 px-space-md">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-emerald-50 text-emerald-700 border border-emerald-200 text-[11px] font-semibold">
+<span class="material-symbols-outlined text-[14px]">check_circle</span>
+                      Good
+                    </span>
+</td>
+<td class="py-3 px-space-md font-['JetBrains_Mono'] font-bold text-emerald-700">98.8%</td>
+<td class="py-3 px-space-md text-right">
+<button class="p-1 rounded hover:bg-slate-100 text-slate-500 hover:text-slate-800" title="Listen target">
+<span class="material-symbols-outlined text-[18px]">volume_up</span>
+</button>
+</td>
+</tr>
+<!-- Word 3 -->
+<tr class="hover:bg-slate-50 transition-colors">
+<td class="py-3 px-space-md font-semibold text-slate-900">practice</td>
+<td class="py-3 px-space-md font-['JetBrains_Mono'] text-emerald-700 font-medium">/ˈpræk.tɪs/</td>
+<td class="py-3 px-space-md">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-emerald-50 text-emerald-700 border border-emerald-200 text-[11px] font-semibold">
+<span class="material-symbols-outlined text-[14px]">check_circle</span>
+                      Good
+                    </span>
+</td>
+<td class="py-3 px-space-md font-['JetBrains_Mono'] font-bold text-emerald-700">96.1%</td>
+<td class="py-3 px-space-md text-right">
+<button class="p-1 rounded hover:bg-slate-100 text-slate-500 hover:text-slate-800" title="Listen target">
+<span class="material-symbols-outlined text-[18px]">volume_up</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<!-- 4. ACCENT OBSERVATION CARD (4 Columns) -->
+<div class="lg:col-span-4 rounded-xl bg-white border border-slate-200 p-space-lg flex flex-col justify-between gap-space-lg shadow-sm">
+<div class="flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider font-['JetBrains_Mono']">Acoustic Calibration</span>
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-indigo-50 border border-indigo-200 text-indigo-700 text-xs font-semibold">
+<span class="w-1.5 h-1.5 rounded-full bg-indigo-600 animate-pulse"></span>
+              Status: calibrating
+            </span>
+</div>
+<div>
+<h3 class="font-['Plus_Jakarta_Sans'] text-lg font-bold text-slate-900">Accent Observation</h3>
+<p class="text-xs text-slate-500 mt-1">Authoritative backend baseline parameters</p>
+</div>
+<!-- Real Backend Display Callout -->
+<div class="p-space-md rounded-xl bg-slate-50 border border-slate-200 flex flex-col gap-space-sm">
+<div class="flex items-center gap-2 text-amber-700">
+<span class="material-symbols-outlined text-[20px]">info</span>
+<span class="text-xs font-bold font-['JetBrains_Mono']">Model Status: not_calibrated</span>
+</div>
+<p class="text-xs text-slate-600 leading-relaxed">
+              “Accent classification is currently being calibrated. Acoustic observations: neutral intonation pitch range 142Hz, syllable timing rhythm”
+            </p>
+</div>
+<!-- Acoustic Parameter Cards -->
+<div class="grid grid-cols-2 gap-space-sm">
+<div class="p-space-sm rounded-lg bg-slate-50 border border-slate-200 flex flex-col">
+<span class="text-[11px] text-slate-400 font-medium">Mean Pitch F0</span>
+<span class="font-['JetBrains_Mono'] text-base font-bold text-slate-900">142.4 Hz</span>
+<span class="text-[11px] text-emerald-600 font-semibold mt-0.5">Normative</span>
+</div>
+<div class="p-space-sm rounded-lg bg-slate-50 border border-slate-200 flex flex-col">
+<span class="text-[11px] text-slate-400 font-medium">Vowel Duration</span>
+<span class="font-['JetBrains_Mono'] text-base font-bold text-slate-900">184 ms</span>
+<span class="text-[11px] text-indigo-600 font-semibold mt-0.5">Isochronous</span>
+</div>
+</div>
+</div>
+<!-- Spectral Shape Visualization (Inline SVG) -->
+<div class="p-space-md rounded-xl bg-slate-50 border border-slate-200 flex flex-col gap-space-xs">
+<div class="flex justify-between items-center text-slate-600 text-xs font-medium">
+<span>Spectral Centroid Distribution</span>
+<span class="font-['JetBrains_Mono'] text-slate-900 font-semibold">2.4 kHz</span>
+</div>
+<svg class="w-full h-16 text-indigo-600" fill="none" viewbox="0 0 280 60">
+<path d="M0 45 C 20 45, 30 15, 50 15 C 70 15, 80 40, 100 40 C 120 40, 130 5, 150 5 C 170 5, 180 50, 200 50 C 220 50, 230 25, 250 25 C 270 25, 275 35, 280 35" stroke="currentColor" stroke-linecap="round" stroke-width="2.5"></path>
+<path d="M0 45 C 20 45, 30 15, 50 15 C 70 15, 80 40, 100 40 C 120 40, 130 5, 150 5 C 170 5, 180 50, 200 50 C 220 50, 230 25, 250 25 C 270 25, 275 35, 280 35 L 280 60 L 0 60 Z" fill="currentColor" fill-opacity="0.1"></path>
+</svg>
+<div class="flex justify-between text-slate-400 text-[11px] font-['JetBrains_Mono']">
+<span>0 Hz</span>
+<span>12 kHz</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Bottom Bento Row: 5. AI FEEDBACK & EXERCISES & 6. TTS AUDIO RESPONSE -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg">
+<!-- 5. AI Feedback & Guided Drill (8 Columns) -->
+<div class="lg:col-span-8 rounded-xl bg-white border border-slate-200 p-space-lg flex flex-col gap-space-lg shadow-sm">
+<div class="flex items-center justify-between">
+<div>
+<span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider font-['JetBrains_Mono']">Linguistic Intelligence</span>
+<h3 class="font-['Plus_Jakarta_Sans'] text-2xl font-bold text-slate-900">Neural Feedback &amp; Prescription</h3>
+</div>
+<span class="w-8 h-8 rounded-lg bg-indigo-50 border border-indigo-100 flex items-center justify-center text-indigo-600">
+<span class="material-symbols-outlined text-[20px]">neurology</span>
+</span>
+</div>
+<!-- Summary Banner -->
+<div class="p-space-md rounded-xl bg-indigo-50/60 border border-indigo-100 flex items-start gap-space-md">
+<div class="w-8 h-8 rounded-full bg-indigo-100 text-indigo-600 flex items-center justify-center flex-shrink-0 mt-0.5">
+<span class="material-symbols-outlined text-[18px]">psychology</span>
+</div>
+<div class="flex flex-col gap-0.5">
+<span class="text-xs font-bold text-indigo-700 uppercase tracking-wider">Diagnostic Summary</span>
+<p class="text-sm font-medium text-slate-900">
+              “Excellent clarity and pacing with minor aspiration needed on initial stops.”
+            </p>
+</div>
+</div>
+<!-- Strengths vs Areas to improve -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-space-md">
+<div class="p-space-md rounded-xl bg-slate-50 border border-slate-200 flex flex-col gap-space-sm">
+<div class="flex items-center gap-2 text-emerald-700">
+<span class="material-symbols-outlined text-[20px]">check_circle</span>
+<span class="text-xs font-bold tracking-wide uppercase">Strengths</span>
+</div>
+<ul class="flex flex-col gap-2 text-xs text-slate-600">
+<li class="flex items-start gap-2">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-500 mt-1.5 flex-shrink-0"></span>
+<span><strong class="text-slate-900">Strong vowel clarity</strong> across long and dipthongized vowels.</span>
+</li>
+<li class="flex items-start gap-2">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-500 mt-1.5 flex-shrink-0"></span>
+<span><strong class="text-slate-900">Natural sentence stress</strong> with standard downstep contours.</span>
+</li>
+</ul>
+</div>
+<div class="p-space-md rounded-xl bg-slate-50 border border-slate-200 flex flex-col gap-space-sm">
+<div class="flex items-center gap-2 text-amber-700">
+<span class="material-symbols-outlined text-[20px]">trending_up</span>
+<span class="text-xs font-bold tracking-wide uppercase">Areas to Improve</span>
+</div>
+<ul class="flex flex-col gap-2 text-xs text-slate-600">
+<li class="flex items-start gap-2">
+<span class="w-1.5 h-1.5 rounded-full bg-amber-500 mt-1.5 flex-shrink-0"></span>
+<span><strong class="text-slate-900">Sibilant sharpness:</strong> Soften alveolar fricative friction.</span>
+</li>
+<li class="flex items-start gap-2">
+<span class="w-1.5 h-1.5 rounded-full bg-amber-500 mt-1.5 flex-shrink-0"></span>
+<span><strong class="text-slate-900">Final consonant release:</strong> Ensure clear unvoiced plosion.</span>
+</li>
+</ul>
+</div>
+</div>
+<!-- Suggested Exercise Card -->
+<div class="p-space-lg rounded-xl bg-slate-50 border border-slate-200 flex flex-col gap-space-md">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-xs">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-indigo-600 text-[22px]">fitness_center</span>
+<span class="font-['Plus_Jakarta_Sans'] text-base font-bold text-slate-900">Suggested Exercise: Plosive Precision Drill</span>
+</div>
+<span class="px-2.5 py-0.5 rounded-md bg-indigo-100 text-indigo-700 border border-indigo-200 text-[10px] font-bold uppercase tracking-wider self-start sm:self-auto font-['JetBrains_Mono']">
+              Phoneme Isolation
+            </span>
+</div>
+<div class="flex flex-col gap-space-sm text-xs text-slate-600 leading-relaxed">
+<p><strong class="text-slate-900">Target words:</strong> <span class="text-emerald-700 font-bold font-['JetBrains_Mono']">“practice”</span>, <span class="text-emerald-700 font-bold font-['JetBrains_Mono']">“country”</span></p>
+<p><strong class="text-slate-900">Instructions:</strong> Inhale gently and focus air release sharply against your upper alveolar ridge. Exhale with a controlled burst without adding extraneous vowel coloration.</p>
+<div class="p-space-sm rounded-lg bg-white border border-slate-200 text-sm text-slate-800 font-medium italic shadow-sm">
+              Sample Sentence: “Consistent practice in every country creates fluent resonance.”
+            </div>
+</div>
+</div>
+</div>
+<!-- 6. TTS Audio Response & 7. PRIMARY LOOP CTA (4 Columns) -->
+<div class="lg:col-span-4 flex flex-col gap-space-lg justify-between">
+<!-- 6. TTS Audio Player Console -->
+<div class="rounded-xl bg-white border border-slate-200 p-space-lg flex flex-col justify-between gap-space-md shadow-sm h-full">
+<div class="flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider font-['JetBrains_Mono']">Neural Synthesis</span>
+<span class="px-2 py-0.5 rounded-md bg-slate-100 text-slate-600 text-xs font-['JetBrains_Mono'] border border-slate-200">v2.4 Engine</span>
+</div>
+<div>
+<h3 class="font-['Plus_Jakarta_Sans'] text-lg font-bold text-slate-900">AI Audio Feedback</h3>
+<p class="text-xs text-slate-500 mt-0.5">Source: <code class="font-['JetBrains_Mono'] text-slate-700">/api/v1/tts/synthesize</code></p>
+</div>
+<!-- Custom Waveform Player Simulation -->
+<div class="p-space-md rounded-xl bg-slate-50 border border-slate-200 flex flex-col gap-space-md">
+<div class="flex items-center justify-between text-slate-500 font-['JetBrains_Mono'] text-xs">
+<span class="font-semibold text-slate-900" id="audio-time-current">0:00</span>
+<span class="text-slate-400">0:14</span>
+</div>
+<!-- Animated Waveform Bars Container -->
+<div class="flex items-center justify-between gap-1 h-12 px-1" id="tts-waveform-bars">
+<!-- 24 reactive SVG-like vertical visualizer bars -->
+<div class="w-1 bg-slate-300 rounded-full h-3 transition-all duration-150"></div>
+<div class="w-1 bg-slate-300 rounded-full h-5 transition-all duration-150"></div>
+<div class="w-1 bg-slate-300 rounded-full h-8 transition-all duration-150"></div>
+<div class="w-1 bg-slate-300 rounded-full h-11 transition-all duration-150"></div>
+<div class="w-1 bg-slate-300 rounded-full h-6 transition-all duration-150"></div>
+<div class="w-1 bg-slate-300 rounded-full h-4 transition-all duration-150"></div>
+<div class="w-1 bg-slate-300 rounded-full h-7 transition-all duration-150"></div>
+<div class="w-1 bg-slate-300 rounded-full h-10 transition-all duration-150"></div>
+<div class="w-1 bg-slate-300 rounded-full h-12 transition-all duration-150"></div>
+<div class="w-1 bg-slate-300 rounded-full h-9 transition-all duration-150"></div>
+<div class="w-1 bg-slate-300 rounded-full h-5 transition-all duration-150"></div>
+<div class="w-1 bg-slate-300 rounded-full h-8 transition-all duration-150"></div>
+<div class="w-1 bg-slate-300 rounded-full h-10 transition-all duration-150"></div>
+<div class="w-1 bg-slate-300 rounded-full h-6 transition-all duration-150"></div>
+<div class="w-1 bg-slate-300 rounded-full h-4 transition-all duration-150"></div>
+<div class="w-1 bg-slate-300 rounded-full h-7 transition-all duration-150"></div>
+<div class="w-1 bg-slate-300 rounded-full h-11 transition-all duration-150"></div>
+<div class="w-1 bg-slate-300 rounded-full h-8 transition-all duration-150"></div>
+<div class="w-1 bg-slate-300 rounded-full h-5 transition-all duration-150"></div>
+<div class="w-1 bg-slate-300 rounded-full h-3 transition-all duration-150"></div>
+</div>
+<!-- Audio Player Controls -->
+<div class="flex items-center justify-center gap-space-md pt-space-xs">
+<button class="p-2 rounded-lg text-slate-500 hover:text-slate-900 hover:bg-slate-200 transition-all" id="btn-audio-rewind" title="Replay">
+<span class="material-symbols-outlined text-[22px]">replay</span>
+</button>
+<button class="w-12 h-12 rounded-full bg-indigo-600 hover:bg-indigo-700 text-white hover:scale-105 shadow-md shadow-indigo-200 flex items-center justify-center transition-all" id="btn-audio-play">
+<span class="material-symbols-outlined text-[26px]" id="play-icon-glyph" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+</button>
+<button class="px-2.5 py-1 rounded text-slate-600 hover:text-slate-900 font-['JetBrains_Mono'] text-xs font-semibold bg-slate-200/80 hover:bg-slate-200 border border-slate-300 transition-all" id="btn-audio-speed">
+                  1.0x
+                </button>
+</div>
+</div>
+<div class="flex items-center justify-between text-slate-500 text-xs px-1">
+<span>Voice Model: Resonant Clarity</span>
+<span class="flex items-center gap-1 text-emerald-600 font-medium">
+<span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+                Synthesized
+              </span>
+</div>
+</div>
+<!-- 7. PRIMARY LOOP CTA -->
+<div class="pt-space-md flex flex-col gap-space-sm">
+<button class="relative group w-full py-4 px-space-lg rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-['Plus_Jakarta_Sans'] font-bold text-base flex items-center justify-center gap-space-sm shadow-lg shadow-indigo-200 transition-all transform hover:-translate-y-0.5 active:translate-y-0" id="btn-practice-again">
+<span class="material-symbols-outlined text-[22px]">mic</span>
+<span>Practice Again</span>
+<span class="material-symbols-outlined text-[20px] transition-transform group-hover:translate-x-1">arrow_forward</span>
+</button>
+<p class="text-center text-xs text-slate-400">
+              Resets audio stream and preserves learned session state.
+            </p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Interactive Client-side Script -->
+
+</div></main><footer class="w-full bg-white border-t border-slate-200 mt-auto"><div class="w-full px-margin py-space-md flex flex-col sm:flex-row items-center justify-between gap-space-sm text-slate-500 text-xs"><span>© 2025 Resonant Voice AI. Neural Acoustic Architecture.</span><div class="flex items-center gap-space-lg"><span>Phonetic Engine v2.4.1</span><span class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>FastAPI Gateway: Active</span></div></div></footer>
+  <script src="../shared/api.js"></script>
+  <script src="../shared/state.js"></script>
+  <script src="../shared/results_screen.js"></script>
+</body></html>
